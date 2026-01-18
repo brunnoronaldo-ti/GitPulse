@@ -1,4 +1,4 @@
-from flask import Flask, render_template # Framework web leve para Python 
+from flask import Flask, render_template, request # Framework web leve para Python 
 import requests
 
 app = Flask(__name__)
@@ -17,8 +17,13 @@ def get_user_data(username):
 def home():
     return render_template("index.html")
         
-@app.route("/user/<username>")
-def user(username):
+@app.route("/user", methods=["POST"])
+def user():
+    username = request.form.get("username")
+
+    if not username:
+        return {"error": "Username não informado"}, 400
+
     data = get_user_data(username)
 
     if not data:
@@ -29,6 +34,7 @@ def user(username):
         "public_repos": data["public_repos"],
         "followers": data["followers"]
     }
+
 
 if __name__ == "__main__":
     app.run(debug=True)
