@@ -1,8 +1,15 @@
+const colors = languageLabels.map((_, index) => {
+  const hue = (index * 360) / languageLabels.length;
+  return `hsl(${hue}, 70%, 55%)`;
+});
+
 const dataValues = {
-  labels: ["HTML", "CSS", "Python", "JavaScript", "Portugol"], 
+  labels: languageLabels,
   datasets: [{
-    label: "Bytes por linguagem",
-    data: [25223, 14428, 31378, 4632, 8950],
+    label: "Uso de linguagens (%)",
+    data: languageData,
+    backgroundColor: colors,
+    borderColor: colors,
     borderWidth: 1
   }]
 };
@@ -13,10 +20,14 @@ let chart = new Chart(ctx, {
   data: dataValues
 });
 
-document.getElementById("chartType").addEventListener("change", (e) => {
-  chart.destroy();
-  chart = new Chart(ctx, {
-    type: e.target.value,
-    data: dataValues
+const selector = document.getElementById("chartType");
+
+if (selector) {
+  selector.addEventListener("change", (e) => {
+    chart.destroy();
+    chart = new Chart(ctx, {
+      type: e.target.value,
+      data: dataValues
+    });
   });
-});
+}
