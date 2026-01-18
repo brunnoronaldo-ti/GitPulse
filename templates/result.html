@@ -71,22 +71,28 @@
     <select id="chartType">
         <option value="bar">Gráfico de Barras</option>
         <option value="pie">Gráfico de Pizza</option>
-        <option value="doughnut">Rosquinha 🍩</option>
+        <option value="doughnut">Rosquinha </option>
     </select>
 
     <canvas id="languageChart"></canvas>
 
+    <br>
+
     <a href="/">← Analisar outro usuário</a>
 
+    <a href="/download/pdf/{{ username }}">
+        📄 Baixar relatório em PDF
+    </a>
+  
     {% if language_percentages %}
     <script>
-        const languageLabels = {{ language_percentages.keys() | list | tojson }};
-        const languageData = {{ language_percentages.values() | list | tojson }};
+        window.languageLabels = {{ language_percentages.keys() | list | tojson }};
+        window.languageData = {{ language_percentages.values() | list | tojson }};
     </script>
     {% endif %}
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{{ url_for('static', filename='chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='JS/chart.js') }}"></script>
 
 </body>
 </html>
