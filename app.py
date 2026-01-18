@@ -22,18 +22,29 @@ def user():
     username = request.form.get("username")
 
     if not username:
-        return {"error": "Username não informado"}, 400
+        return render_template(
+            "result.html",
+            username="Desconhecido",
+            public_repos="—",
+            followers="—"
+        )
 
     data = get_user_data(username)
 
     if not data:
-        return {"error": "Usuário não encontrado"}, 404
+        return render_template(
+            "result.html",
+            username=username,
+            public_repos="Usuário não encontrado",
+            followers="—"
+        )
 
-    return {
-        "username": data["login"],
-        "public_repos": data["public_repos"],
-        "followers": data["followers"]
-    }
+    return render_template(
+        "result.html",
+        username=data["login"],
+        public_repos=data["public_repos"],
+        followers=data["followers"]
+    )
 
 
 if __name__ == "__main__":
