@@ -15,6 +15,35 @@
         <li>Seguidores: {{ followers }}</li>
     </ul>
 
+    <h3>Repositórios</h3>
+
+    {% if repos %}
+        <ul>
+            {% for repo in repos %}
+                <li>
+                    <strong>{{ repo.name }}</strong>
+                    {% if repo.language %}
+                        — {{ repo.language }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Este usuário não possui repositórios públicos.</p>
+    {% endif %}
+
+    <h3>Linguagens mais usadas</h3>
+
+    {% if languages %}
+        <ul>
+            {% for lang, count in languages.items() %}
+                <li>{{ lang }}: {{ count }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Não foi possível identificar linguagens.</p>
+    {% endif %}
+
     <a href="/">← Analisar outro usuário</a>
 
 </body>
