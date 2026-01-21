@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/tema.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/load.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Analytics</title>
+    <title>GitPulse Analytics</title>
 </head>
 <body>
+    <button id="trocar-tema">oi</button>
 
-    <h1>Bem-vindo ao GitHub Analytics</h1>
-    <p>Esta é a página inicial do aplicativo de análise do GitHub.</p>
+    <h1>Bem-vindo ao Git<strong>Pulse</strong></h1>
 
     <div class="container">
         <P>digite um username do github</P>
 
         <form action="/user" method="post">
             <input type="text" name="username" placeholder="ex: brunnoronaldo-ti" required>
-            <button type="submit">Enviar</button>
+            <button type="submit" popovertarget="loading" onclick="mostrarloading(event)">
+                Enviar
+            </button>
         </form>
     </div>
-    
+
+    <div id="loading" popover="manual" class="loading">
+        <div class="loader">
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+        </div>     
+        <p>Carregando...</p> 
+    </div>
+
+    <button onclick="document.getElementById('loading').showPopover()">
+        TESTAR LOADING
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/load.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tema.js') }}"></script>
+
 </body>
 </html>
