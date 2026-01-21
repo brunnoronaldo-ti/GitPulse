@@ -1,0 +1,61 @@
+/* FORÇA o popover a começar ESCONDIDO */
+#loading {
+    display: none !important;
+}
+
+/* Só mostra quando aberto via popover API */
+#loading:popover-open {
+    display: flex !important;
+}
+
+.loading {
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+}
+
+/* ESTILOS DO LOADER (pontos animados) */
+.loader span {
+    display: inline-block;
+    font-size: 40px;
+    margin: 0 5px;
+    color: #6c63ff;
+    animation: bounce 0.6s cubic-bezier(0.6, 0.1, 1, 0.4) infinite alternate;
+}
+
+.loader span:nth-child(1) {
+    animation-delay: .1s;
+}
+
+.loader span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.loader span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+@keyframes bounce {
+    to {
+        transform: translateY(-15px);
+        opacity: 0.7;
+    }
+}
+
+/* TEXTO "CARREGANDO..." */
+.loading p {
+    margin-top: 20px;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
