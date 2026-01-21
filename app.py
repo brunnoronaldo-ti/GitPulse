@@ -1,12 +1,6 @@
-from reportlab.lib.pagesizes import A4 # Importa o tamanho A4 para o PDF
-from reportlab.pdfgen import canvas # Importa a classe canvas para criar o PDF
-from reportlab.lib.units import cm # Importa a unidade centímetro para posicionamento no PDF
-import io # Importa o módulo io para manipulação de streams de dados
 from flask import Flask, render_template, request, send_file # Importa o Flask e funções relacionadas para criar a aplicação web
+from pdf import generate_pdf # Importa a função generate_pdf do módulo pdf para gerar PDFs
 import requests # Importa o módulo requests para fazer requisições HTTP
-import matplotlib.pyplot as plt # Importa o matplotlib para gerar gráficos
-import tempfile # Importa o módulo tempfile para criar arquivos temporários
-import os # Importa o módulo os para manipulação de arquivos
 
 
 app = Flask(__name__)
@@ -80,74 +74,6 @@ def calculate_language_percentages(languages_by_bytes):
 #ordena as linguagens pela quantidade de bytes em ordem decrescente
 def sort_languages(data):
     return dict(sorted(data.items(), key=lambda item: item[1], reverse=True))
-
-#gera um gráfico de pizza das linguagens usadas
-def generate_language_chart(language_percentages):
-    languages = list(language_percentages.keys())
-    values = list(language_percentages.values())
-
-    temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
-    temp_path = temp_file.name
-    temp_file.close()
-
-    plt.figure(figsize=(6, 6))
-    plt.pie(values, labels=languages, autopct="%1.1f%%", startangle=140)
-    plt.title("Distribuição de Linguagens")
-    plt.tight_layout()
-    plt.savefig(temp_path)
-    plt.close()
-
-    return temp_path
-
-#gera um relatório em PDF com os dados do usuário
-def generate_pdf(username, language_percentages):
-    chart_path = generate_language_chart(language_percentages)
-    buffer = io.BytesIO()
-    pdf = canvas.Canvas(buffer, pagesize=A4)
-
-    width, height = A4
-    y = height - 2 * cm
-
-    pdf.setFont("Helvetica-Bold", 18)
-    pdf.drawString(2 * cm, y, "GitPulse — Relatório de Linguagens")
-
-    pdf.drawImage(
-    chart_path,
-    2 * cm,
-    y - 10 * cm,
-    width=12 * cm,
-    height=12 * cm,
-    preserveAspectRatio=True
-    )
-
-    y -= 12 * cm
-
-    y -= 1.5 * cm
-    pdf.setFont("Helvetica", 12)
-    pdf.drawString(2 * cm, y, f"Usuário: {username}")
-
-    y -= 1 * cm
-    pdf.drawString(2 * cm, y, "Distribuição de linguagens:")
-
-    y -= 1 * cm
-
-    pdf.setFont("Helvetica", 11)
-    for lang, percent in language_percentages.items():
-        pdf.drawString(3 * cm, y, f"{lang}: {percent}%")
-        y -= 0.7 * cm
-
-        if y < 2 * cm:
-            pdf.showPage()
-            y = height - 2 * cm
-            pdf.setFont("Helvetica", 11)
-
-    pdf.showPage()
-    pdf.save()
-    os.remove(chart_path) # Remove o arquivo temporário do gráfico
-
-    buffer.seek(0)
-    return buffer
-
 #--------------------------------------------------------
 #ROTAS:
 
@@ -159,16 +85,23 @@ def home():
 def user():
     username = request.form.get("username")
 
+    print("USERNAME:", username)
+
     if not username:
         return render_template("result.html", error="Username não informado")
 
     user_data = get_user_data(username)
     repos = get_user_repos(username)
+
+    print("REPOS:", len(repos))
+
     languages = count_languages(repos)
     languages_by_bytes = sum_languages_by_bytes(username, repos)
     language_percentages = calculate_language_percentages(languages_by_bytes)
     language_percentages = sort_languages(language_percentages)
 
+    print("LANGUAGES:", languages)
+    print("BYTES:", languages_by_bytes)
 
     if not user_data:
         return render_template(
