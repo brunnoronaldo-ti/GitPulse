@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitPulse Analytics</title>
+    <title>GitPulse</title>
 </head>
 <body>
-    <button id="trocar-tema">oi</button>
+    <button id="trocar-tema">trocar tema</button>
 
-    <h1>Bem-vindo ao Git<strong>Pulse</strong></h1>
+    <h1>Bem-vindo ao Git<span class="destaque">Pulse</span></h1>
 
     <div class="container">
         <P>digite um username do github</P>
@@ -32,10 +32,6 @@
         </div>     
         <p>Carregando...</p> 
     </div>
-
-    <button onclick="document.getElementById('loading').showPopover()">
-        TESTAR LOADING
-    </button>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='js/load.js') }}"></script>
