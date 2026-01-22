@@ -1,24 +1,17 @@
 //arquivo responsável por trocar o tema da página entre claro e escuro
+
 document.getElementById("trocar-tema").addEventListener("click", function() {
   const body = document.body;
   const button = document.getElementById("trocar-tema");
 
-  //define o tema inicial como claro, caso não tenha nenhum tema definido
-  if (!body.classList.contains("tema-claro") && !body.classList.contains("tema-escuro")) {
-    body.classList.add("tema-claro");
-    button.textContent = "escuro";
-    return;
-  }
-
-  // Verifica o tema atual e troca para o outro
-  if (body.classList.contains("tema-claro")) {
-    body.classList.remove("tema-claro");
-    body.classList.add("tema-escuro");
-    button.textContent = "☀️";
+  if (body.classList.contains("light-theme")) {
+    body.classList.remove("light-theme");
+    body.classList.add("dark-theme");
+    button.textContent = "claro";
   } else {
-    body.classList.remove("tema-escuro");
-    body.classList.add("tema-claro");
-    button.textContent = "🌙";
+    body.classList.remove("dark-theme");
+    body.classList.add("light-theme");
+    button.textContent = "escuro";
   }
 
   //salva a preferência do usuário no localStorage
