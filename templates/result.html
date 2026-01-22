@@ -1,80 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/result.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/tema.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitPulse — Resultado</title>
 </head>
 <body>
+    <button id="trocar-tema">trocar tema</button>
 
-    <h1>GitPulse</h1>
+    <h1>Git<span class="destaque">Pulse</span></h1>
 
-    <h2>Resultado para {{ username }}</h2>
+    <h2>Resultado para "{{ username }}"</h2>
 
-    <ul>
-        <li>Repositórios públicos: {{ public_repos }}</li>
-        <li>Seguidores: {{ followers }}</li>
-    </ul>
-
-    <h3>Repositórios</h3>
-
-    {% if repos %}
+    <div class="summary">
+        <h3>Resumo do Usuário</h3>
         <ul>
-            {% for repo in repos %}
-                <li>
-                    <strong>{{ repo.name }}</strong>
-                    {% if repo.language %}
-                        — {{ repo.language }}
-                    {% endif %}
-                </li>
-            {% endfor %}
+            <li>Repositórios públicos: {{ public_repos }}</li>
+            <li>Seguidores: {{ followers }}</li>
         </ul>
-    {% else %}
-        <p>Este usuário não possui repositórios públicos.</p>
-    {% endif %}
+    </div>
 
-    <h3>Linguagens mais usadas</h3>
+    <div class="info">
+        <h3>Repositórios</h3>
 
-    {% if languages %}
-        <ul>
-            {% for lang, count in languages.items() %}
-                <li>{{ lang }}: {{ count }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Não foi possível identificar linguagens.</p>
-    {% endif %}
+        {% if repos %}
+            <ul>
+                {% for repo in repos %}
+                    <li>
+                        <strong>{{ repo.name }}</strong>
+                        {% if repo.language %}
+                            — {{ repo.language }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Este usuário não possui repositórios públicos.</p>
+        {% endif %}
 
-    <h3>Linguagens por volume de código</h3>
+        <h3>Linguagens mais usadas</h3>
 
-    {% if languages_by_bytes %}
-        <ul>
-            {% for lang, bytes in languages_by_bytes.items() %}
-                <li>{{ lang }}: {{ bytes }} bytes</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Não foi possível calcular os volumes.</p>
-    {% endif %}
+        {% if languages %}
+            <ul>
+                {% for lang, count in languages.items() %}
+                    <li>{{ lang }}: {{ count }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não foi possível identificar linguagens.</p>
+        {% endif %}
 
-    <h3>Distribuição de linguagens (%)</h3>
+        <h3>Linguagens por volume de código</h3>
 
-    {% if language_percentages %}
-        <ul>
-            {% for lang, percent in language_percentages.items() %}
-                <li>{{ lang }} — {{ percent }}%</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Não foi possível calcular os percentuais.</p>
-    {% endif %}
+        {% if languages_by_bytes %}
+            <ul>
+                {% for lang, bytes in languages_by_bytes.items() %}
+                    <li>{{ lang }}: {{ bytes }} bytes</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não foi possível calcular os volumes.</p>
+        {% endif %}
 
-    <select id="chartType">
-        <option value="bar">Gráfico de Barras</option>
-        <option value="pie">Gráfico de Pizza</option>
-        <option value="doughnut">Rosquinha </option>
-    </select>
+        <h3>Distribuição de linguagens (%)</h3>
 
-    <canvas id="languageChart"></canvas>
+        {% if language_percentages %}
+            <ul>
+                {% for lang, percent in language_percentages.items() %}
+                    <li>{{ lang }} — {{ percent }}%</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não foi possível calcular os percentuais.</p>
+        {% endif %}
+
+        <select id="chartType">
+            <option value="bar">Gráfico de Barras</option>
+            <option value="pie">Gráfico de Pizza</option>
+            <option value="doughnut">Rosquinha </option>
+        </select>
+
+        <canvas id="languageChart"></canvas>
+    </div>
 
     <br>
 
@@ -93,6 +103,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='JS/chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='JS/tema.js') }}"></script>
 
 </body>
 </html>
