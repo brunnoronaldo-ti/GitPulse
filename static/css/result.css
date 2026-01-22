@@ -1,0 +1,146 @@
+.summary {
+    background-color: #f0f8ff;
+    border: 1px solid #add8e6;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.summary h3 {
+    margin-top: 0;
+    color: #2a52be;
+}
+
+/*alinhamento dos parágrafos dentro do resumo*/
+.summary p {
+    font-size: 18px;
+    color: #333333;
+    display: inline-block;
+    text-align: left;   
+    max-width: 600px;
+}
+
+.info h3 {
+    color: #2a52be;
+}
+
+button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 30px;
+}
+
+h2 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.info {
+    margin-top: 30px;
+}
+
+.info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.info li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.info li:hover {
+    background-color: #e9ecef;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#language-stats {
+    margin-top: 20px;
+}
+
+#language-stats ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#language-stats li {
+    background-color: #f1f1f1;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+#language-stats li:hover {
+    background-color: #dcdcdc;
+}
+
+#language-stats .language-name {
+    font-weight: bold;
+    color: #333333;
+}
+
+#language-stats .language-percentage {
+    float: right;
+    color: #666666;
+}
+
+#language-stats::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#language-chart {
+    max-width: 400px;
+    margin-top: 20px;
+    text-align: center;
+}
+#language-chart canvas {
+    max-width: 200px;
+    margin: 0 auto;
+}
+#language-chart h4 {
+    color: #333333;
+}
+#language-chart p {
+    color: #555555;
+}
+#language-chart .no-data {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+canvas {
+    align-content: center;
+    max-width: 50%;
+    height: auto;
+}
